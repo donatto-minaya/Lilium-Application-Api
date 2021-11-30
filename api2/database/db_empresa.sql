@@ -115,9 +115,14 @@ create table [Accounts].[Employees](
 	[id_employee] int not null,
 	[user_id] int not null,
 	[rol_id] char(1) not null,
-	[employee_number] varchar(20) NULL,
+	[company_id] int not null,
+	[employee_number] varchar(20) null,
 	[employee_email] varchar(40) not null
 )
+go
+
+alter table [Accounts].[Employees] add constraint fk_company 
+foreign key([company_id]) references [Accounts].[Company]([company_id])
 go
 
 alter table [Accounts].[Employees] add constraint pk_employee primary key ([id_employee])
@@ -228,6 +233,21 @@ go
 alter table [Company].[Advertisements] add constraint fk_company foreign key ([company_id]) references [Accounts].[Company]
 go
 
+create table [Company].[Tasks] (
+	task_id int identity,
+	company_id int,
+	title varchar(50),
+	fechaInicio varchar(30),
+	fechaTerminada varchar(30)
+)
+go
+
+alter table [Company].[Tasks] add constraint pk_task primary key(task_id)
+go
+
+alter table [Company].[Tasks] add constraint fk_company_task 
+foreign key (company_id) references [Accounts].[Company](company_id)
+go
 
 
 insert into [Company].[Advertisements] ([title], [company_id], [description], tipoJornadaId, fechaCreada) values

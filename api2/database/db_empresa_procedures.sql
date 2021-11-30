@@ -20,7 +20,7 @@ as
 					select * from [Accounts].Profesional where user_email = @correo and user_password = @clave
 			end
 		else
-			select * from [Accounts].Company where company_email = @correo and company_password = @clave
+			select * from [Accounts].Customer where user_email = @correo and user_password = @clave
 	end
 go
 
@@ -208,6 +208,49 @@ as
 go
 
 ---------------------------------------
+------------ Api/Task ------------
+---------------------------------------
+
+-- Get{id}
+create or alter proc obtenerActividadesPorEmpresa(@id int)
+as
+	begin
+		select * from [Company].[Tasks] 
+		where company_id = 1 and (fechaTerminada is null)
+	end
+go
+
+-- Post
+create or alter proc crearActividad(@id int, @titulo varchar(50))
+as
+	begin
+		insert into [Company].[Tasks](company_id, title, fechaInicio)
+		values(@id, @titulo, convert(date, getdate()))
+	end
+go
+
+-- Edit
+create or alter proc editarActividad(@idTask int, @titulo varchar(50))
+as
+	begin
+		update [Company].[Tasks]
+		set title = @titulo
+		where task_id = @idTask
+	end
+go
+
+-- Delete -> Update
+create or alter proc actividadTerminada(@idTask int)
+as
+	begin
+		update [Company].[Tasks] set
+		fechaTerminada = convert(date, getdate())
+		where task_id = @idTask
+	end
+go
+
+
+---------------------------------------
 ------------ Api/Employees ------------
 ---------------------------------------
 
@@ -226,6 +269,9 @@ as
 		values (@titulo, @id_empresa, @descripcion, @tipoJornada, convert(date, getdate()))
 	end
 go
+
+-- Edit
+
 
 -- Vista para el get
 create or alter view vistaAnuncios 
