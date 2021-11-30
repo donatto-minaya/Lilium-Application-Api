@@ -60,6 +60,7 @@ namespace api2
             services.AddScoped<ISectorsService, SectorService>();
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<IJornadaService, JornadaService>();
+            services.AddScoped<ITasksService, TaskService>();
 
             var key = Encoding.UTF8.GetBytes(Configuration["ApplicationSettings:jwt_secret"].ToString());
 
