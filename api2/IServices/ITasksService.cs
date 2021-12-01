@@ -11,7 +11,7 @@ namespace api2.IServices
         Tasks insertarActividad(Tasks t);
         Tasks actualizarActividad(Tasks t);
         Tasks actividadCompletada(int id);
-        void eliminarActividad(int id);
+        void eliminarActividadesEmpresa(int id);
         List<Tasks> listarActividadesPorEmpresa(int companyId);
     }
 }

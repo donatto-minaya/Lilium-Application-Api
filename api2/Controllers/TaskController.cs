@@ -46,5 +46,12 @@ namespace api2.Controllers
             if (ModelState.IsValid) return interfas.actividadCompletada(Convert.ToInt32(id));
             return null;
         }
+
+        [HttpDelete("{id}")]
+        public IEnumerable<Tasks> Delete(string id)
+        {
+            interfas.eliminarActividadesEmpresa(Convert.ToInt32(id));
+            return null;
+        }
     }
 }

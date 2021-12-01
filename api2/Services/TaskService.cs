@@ -72,9 +72,14 @@ namespace api2.Services
             return _actividad;
         }
 
-        public void eliminarActividad(int id)
+        public void eliminarActividadesEmpresa(int id)
         {
-            throw new NotImplementedException();
+            using (IDbConnection cn = new SqlConnection(Global.ConnectionString))
+            {
+                DynamicParameters p = new DynamicParameters();
+                p.Add("@id", id);
+                cn.Execute("eliminarActividadesPorEmpresa", p, commandType: CommandType.StoredProcedure);
+            }
         }
 
         public Tasks insertarActividad(Tasks t)
