@@ -39,7 +39,7 @@ namespace api2.Controllers
         {
             return interfas.listarTrabajosDeEmpresa(id);
         }
-
+        
         
         [HttpDelete("{id}")]
         public IEnumerable<Advertisements> Delete(string id)

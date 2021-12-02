@@ -27,10 +27,17 @@ namespace api2.Controllers
             return null;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
         public IEnumerable<Tasks> Get(string id)
         {
             return interfas.listarActividadesPorEmpresa(Convert.ToInt32(id));
+        }
+
+        [HttpGet]
+        [Route("completas")]
+        public IEnumerable<Tasks> GetFinished(string id)
+        {
+            return interfas.listarActividadesCompletas(Convert.ToInt32(id));
         }
 
         [HttpPut]
@@ -47,10 +54,18 @@ namespace api2.Controllers
             return null;
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete()]
         public IEnumerable<Tasks> Delete(string id)
         {
             interfas.eliminarActividadesEmpresa(Convert.ToInt32(id));
+            return null;
+        }
+
+        [HttpDelete()]
+        [Route("completas")]
+        public IEnumerable<Tasks> DeleteFinished(string id)
+        {
+            interfas.eliminarActividadesCompletasEmpresa(Convert.ToInt32(id));
             return null;
         }
     }

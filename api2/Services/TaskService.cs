@@ -82,6 +82,16 @@ namespace api2.Services
             }
         }
 
+        public void eliminarActividadesCompletasEmpresa(int id)
+        {
+            using (IDbConnection cn = new SqlConnection(Global.ConnectionString))
+            {
+                DynamicParameters p = new DynamicParameters();
+                p.Add("@id", id);
+                cn.Execute("eliminarActividadesCompletasPorEmpresa", p, commandType: CommandType.StoredProcedure);
+            }
+        }
+
         public Tasks insertarActividad(Tasks t)
         {
             _actividad = new Tasks();
@@ -119,6 +129,25 @@ namespace api2.Services
                 if (cn.State == ConnectionState.Closed) cn.Open();
 
                 var query = cn.Query<Tasks>("obtenerActividadesPorEmpresa", this.SetParameter(companyId), commandType: CommandType.StoredProcedure).ToList();
+
+                if (query != null && query.Count() > 0)
+                {
+                    _actividades = query;
+                }
+            }
+
+            return _actividades;
+        }
+
+        public List<Tasks> listarActividadesCompletas(int companyId)
+        {
+            _actividades = new List<Tasks>();
+
+            using (IDbConnection cn = new SqlConnection(Global.ConnectionString))
+            {
+                if (cn.State == ConnectionState.Closed) cn.Open();
+
+                var query = cn.Query<Tasks>("obtenerActividadesTerminadasPorEmpresa", this.SetParameter(companyId), commandType: CommandType.StoredProcedure).ToList();
 
                 if (query != null && query.Count() > 0)
                 {

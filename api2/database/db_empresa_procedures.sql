@@ -212,6 +212,15 @@ go
 ---------------------------------------
 
 -- Get{id}
+create or alter proc obtenerActividadesTerminadasPorEmpresa(@id int)
+as
+	begin
+		select * from [Company].[Tasks] 
+		where company_id = 1 and (fechaTerminada != '')
+	end
+go
+
+-- Get{id}
 create or alter proc obtenerActividadesPorEmpresa(@id int)
 as
 	begin
@@ -246,6 +255,14 @@ as
 		update [Company].[Tasks] set
 		fechaTerminada = convert(date, getdate())
 		where task_id = @idTask
+	end
+go
+
+-- Delete
+create or alter proc eliminarActividadesPorEmpresa(@id int)
+as
+	begin
+		delete from [Company].[Tasks] where company_id = @id
 	end
 go
 
