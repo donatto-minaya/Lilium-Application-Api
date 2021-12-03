@@ -210,13 +210,12 @@ go
 ---------------------------------------
 ------------ Api/Task ------------
 ---------------------------------------
-
 -- Get{id}
 create or alter proc obtenerActividadesTerminadasPorEmpresa(@id int)
 as
 	begin
 		select * from [Company].[Tasks] 
-		where company_id = 1 and (fechaTerminada != '')
+		where company_id = @id and (fechaTerminada != '')
 	end
 go
 
@@ -225,7 +224,7 @@ create or alter proc obtenerActividadesPorEmpresa(@id int)
 as
 	begin
 		select * from [Company].[Tasks] 
-		where company_id = 1 and (fechaTerminada is null)
+		where company_id = @id and (fechaTerminada is null)
 	end
 go
 
@@ -262,7 +261,17 @@ go
 create or alter proc eliminarActividadesPorEmpresa(@id int)
 as
 	begin
-		delete from [Company].[Tasks] where company_id = @id
+		delete from [Company].[Tasks] 
+		where company_id = @id and (fechaTerminada is null)
+	end
+go
+
+-- Limpiar Actividades Completas -> Delete
+create or alter proc eliminarActividadesCompletasPorEmpresa(@id int)
+as
+	begin
+		delete from [Company].[Tasks] 
+		where company_id = @id and (fechaTerminada != '')
 	end
 go
 
