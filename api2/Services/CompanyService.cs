@@ -145,6 +145,7 @@ namespace api2.Services
             p.Add("@empresa", c.company_name);
             p.Add("@correoEmpresa", c.company_email);
             p.Add("@claveEmpresa", c.company_password);
+            p.Add("@correoFono", c.company_phone);
 
             if (c.company_age != "")
             {

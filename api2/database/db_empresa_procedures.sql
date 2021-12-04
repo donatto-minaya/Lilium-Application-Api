@@ -303,12 +303,11 @@ go
 create or alter view vistaAnuncios 
 as 
 	select ca.title Titulo, ca.[description] Descripcion, ac.company_name Empresa, 
-	cb.business_name Negocio, cb.business_description DescripcionNegocio, cj.jornada tipoJornada, ca.fechaCreada fechaCreacion
+	cj.jornada tipoJornada, ca.fechaCreada fechaCreacion
 	from [Company].[Advertisements] ca
 
 	inner join [Company].[Jornadas] cj on ca.tipoJornadaId = cj.tipoJornadaId
 	inner join [Accounts].[Company] ac on ca.[company_id] = ac.[company_id]
-	inner join [Company].[Business] cb on ac.[business_id] = cb.[business_id]
 go
 
 -- Get
