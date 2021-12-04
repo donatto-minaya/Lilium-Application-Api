@@ -71,11 +71,11 @@ go
 ---------------------------------------
 
 -- Create
-create or alter proc crearEmpresa(@empresa varchar(20), @edad varchar(10), @correoEmpresa varchar(50), @claveEmpresa varchar(50), @correoPaypal varchar(50))
+create or alter proc crearEmpresa(@empresa varchar(20), @edad varchar(10), @correoEmpresa varchar(50), @claveEmpresa varchar(50), @correoPaypal varchar(50), @correoFono varchar(50))
 as
 	begin
-		insert into [Accounts].[Company]([rol_id], [company_name], [company_age],[company_email], [company_password], [company_paypal_email])
-		values(default, @empresa, @edad, @correoEmpresa, @claveEmpresa, @correoPaypal)
+		insert into [Accounts].[Company]([rol_id], [company_name], [company_age],[company_email], [company_password], [company_paypal_email], [company_phone])
+		values(default, @empresa, @edad, @correoEmpresa, @claveEmpresa, @correoPaypal, @correoFono)
 	end
 go
 
